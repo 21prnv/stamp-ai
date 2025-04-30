@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import EmailComposer from "./EmailAnimation";
+import EmailComposer from "../ReplyInSecond/EmailAnimation";
 import CategoryCarousel from "./CategouryCarsoul";
 
 export default function FilterOutTheNoiseGrid() {

@@ -1,8 +1,8 @@
 "use client";
 
-import FilterOutTheNoiseGrid from "@/components/Features/FilterOutTheNoiseGrid";
+import FilterOutTheNoiseGrid from "@/components/Features/Categorie/FilterOutTheNoiseGrid";
 import FindAnythingGrid from "@/components/Features/FindAnything/FindAnythingGrid";
-import ReplyInSecondBentoGrid from "@/components/Features/ReplyInSecondBento";
+import ReplyInSecondBentoGrid from "@/components/Features/ReplyInSecond/ReplyInSecondBento";
 import SummaryGrid from "@/components/Features/Summary/SummaryGrid";
 import FooterSection from "@/components/Footer/FooterSection";
 import Head from "next/head";
