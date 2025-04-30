@@ -125,6 +125,19 @@ export default function Home() {
                 The inbox that handles your email for you. Say goodbye to email
                 overload and hello to your second brain.
               </p>
+              <div className="mt-6 flex items-center justify-center space-x-2">
+                <p className="text-gray-600 font-extralight text-[13px]">
+                  {" "}
+                  Backed by
+                </p>
+                <Image
+                  src="/yc.svg"
+                  alt="Logo"
+                  width={100}
+                  height={100}
+                  className="mb-2"
+                />
+              </div>
               <div className="mt-8 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                 <button className="bg-black text-white px-6 py-3 rounded-full font-medium cursor-pointer">
                   Schedule a Demo
