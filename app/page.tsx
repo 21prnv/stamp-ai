@@ -5,9 +5,50 @@ import FindAnythingGrid from "@/components/Features/FindAnything/FindAnythingGri
 import ReplyInSecondBentoGrid from "@/components/Features/ReplyInSecond/ReplyInSecondBento";
 import SummaryGrid from "@/components/Features/Summary/SummaryGrid";
 import FooterSection from "@/components/Footer/FooterSection";
-import Head from "next/head";
 import Image from "next/image";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, JSX } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+
+// Animation variants for fade-in effect
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+// Component to handle scroll animations
+const AnimateOnScroll = ({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}): JSX.Element => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={fadeInUp}
+      className={className}
+      transition={{ delay }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 export default function Home() {
   const [showVideo, setShowVideo] = useState(false);
@@ -28,8 +69,6 @@ export default function Home() {
     }
   }, []);
 
-  // Cursor gradient animation
-
   return (
     <div>
       <div
@@ -44,7 +83,12 @@ export default function Home() {
 
         <div className="container mx-auto px-4 relative">
           {/* Navigation */}
-          <nav className="flex items-center justify-between py-6 relative">
+          <motion.nav
+            className="flex items-center justify-between py-6 relative"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <div className="flex items-center justify-center">
               <img src="/logo.webp" alt="Stamp Logo" />
               {/* Desktop Menu */}
@@ -113,11 +157,11 @@ export default function Home() {
                 </div>
               </div>
             )}
-          </nav>
+          </motion.nav>
 
           {/* Hero Section */}
           <div className="flex flex-col items-center mt-12 md:mt-24">
-            <div className="w-full text-center">
+            <AnimateOnScroll className="w-full text-center">
               <h1 className="text-4xl md:text-6xl font-medium text-gray-900 leading-tight ">
                 Your AI-Powered Second Brain for Email
               </h1>
@@ -143,13 +187,16 @@ export default function Home() {
                   Schedule a Demo
                 </button>
                 <button className="bg-purple-100 text-purple-800 px-6 py-3 rounded-full font-medium cursor-pointer">
-                  Contact Sales
+                  Get Started
                 </button>
               </div>
-            </div>
+            </AnimateOnScroll>
 
             {/* Laptop Display Section */}
-            <div className="w-full h-full flex justify-center items-center mt-12 relative">
+            <AnimateOnScroll
+              className="w-full h-full flex justify-center items-center mt-12 relative"
+              delay={0.2}
+            >
               <div className="relative h-full w-full max-w-6xl mx-auto">
                 {showVideo && (
                   <div className="absolute z-10 md:left-6 h-full left-1 md:-top-[63px] md:bottom-0 bottom-6 w-full flex justify-center items-center rounded-2xl">
@@ -196,7 +243,7 @@ export default function Home() {
                   )}
                 </div>
               </div>
-            </div>
+            </AnimateOnScroll>
           </div>
         </div>
 
@@ -247,13 +294,26 @@ export default function Home() {
         `}</style>
       </div>
       <div className="md:px-10 md:py-10 py-2 px-2 gap-4 mx-auto flex flex-col max-w-7xl">
-        <ReplyInSecondBentoGrid />
+        <AnimateOnScroll className="">
+          <ReplyInSecondBentoGrid />
+        </AnimateOnScroll>
+
         <div className="flex md:flex-row flex-col justify-between gap-3">
-          <FilterOutTheNoiseGrid />
-          <SummaryGrid />
+          <AnimateOnScroll delay={0.1} className="">
+            <FilterOutTheNoiseGrid />
+          </AnimateOnScroll>
+          <AnimateOnScroll delay={0.2} className="">
+            <SummaryGrid />
+          </AnimateOnScroll>
         </div>
-        <FindAnythingGrid />
-        <FooterSection />
+
+        <AnimateOnScroll delay={0.1} className="">
+          <FindAnythingGrid />
+        </AnimateOnScroll>
+
+        <AnimateOnScroll delay={0.2} className="">
+          <FooterSection />
+        </AnimateOnScroll>
       </div>
     </div>
   );
